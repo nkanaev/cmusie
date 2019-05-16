@@ -10,6 +10,10 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+- (void)mediaKeysTopPriority;
+- (void)mediaKeysStart;
+- (void)mediaKeysRestart;
+- (void)mediaKeysStop;
+- (bool)mediaKeysHandle:(NSEvent*)event;
 
 @end
-
