@@ -91,6 +91,16 @@
 }
 
 - (void)popoverToggle:(NSEvent*)sender {
+    if (!_mk_tap_port) {
+        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+        BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+        if (!accessibilityEnabled) {
+            return;
+        } else {
+            [self mediaKeysStart];
+        }
+    }
+    
     if (self.popover.shown) {
         [self.popover performClose:sender];
     } else {
