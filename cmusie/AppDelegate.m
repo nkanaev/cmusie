@@ -1,12 +1,5 @@
-//
-//  AppDelegate.m
-//  cmusie
-//
-//  Created by nkanaev on 13/05/2019.
-//  Copyright © 2019 nkanaev. All rights reserved.
-//
-
 #import "AppDelegate.h"
+#import "PopoverViewController.h"
 
 #define MEDIAKEY_DOWN(event) (((([event data1] & 0x0000FFFF) & 0xFF00) >> 8) == 0xA)
 #define MEDIAKEY_CODE(event) (([event data1] & 0xFFFF0000) >> 16)
@@ -16,6 +9,15 @@
 }
 
 @property (strong, nonatomic) NSStatusItem *statusItem;
+@property (strong, nonatomic) NSPopover *popover;
+
+- (void)popoverToggle:(NSEvent*)sender;
+
+- (void)mediaKeysTopPriority;
+- (void)mediaKeysStart;
+- (void)mediaKeysRestart;
+- (void)mediaKeysStop;
+- (bool)mediaKeysHandle:(NSEvent*)sender;
 
 @end
 
@@ -26,12 +28,76 @@
     [menu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@""];
     
     NSStatusItem *item = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    item.button.image = [NSImage imageNamed:@"play-circle@2x.png"];
+    item.button.image = [NSImage imageNamed:@"AppIcon"];
+    item.button.imageScaling = NSImageScaleProportionallyUpOrDown;
     
     self.statusItem = item;
-    self.statusItem.menu = menu;
+    [self.statusItem.button setAction:@selector(popoverToggle:)];
+    
+    self.popover = [[NSPopover alloc] init];
+    self.popover.animates = NO;
+    self.popover.behavior = NSPopoverBehaviorSemitransient;
+    self.popover.contentViewController = [PopoverViewController create];
     
     [self mediaKeysStart];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    if (self.popover.shown) {
+        [self.popover performClose:nil];
+    }
+}
+
+- (bool)playerToggle {
+    return [self runCommand:@[@"cmus-remote", @"--pause"]].terminationStatus == 0;
+}
+
+- (bool)playerPrev {
+    return [self runCommand:@[@"cmus-remote", @"--prev"]].terminationStatus == 0;
+}
+
+- (bool)playerNext {
+    return [self runCommand:@[@"cmus-remote", @"--next"]].terminationStatus == 0;
+}
+
+- (NSDictionary*)playerStatus {
+    NSMutableDictionary *tag = [[NSMutableDictionary alloc] init];
+    BOOL running = NO, playing = NO;
+    
+    NSTask *task = [self runCommand:@[@"cmus-remote", @"-Q"]];
+    if (task.terminationStatus == 0) {
+        running = YES;
+        NSPipe *stdout = (NSPipe*)task.standardOutput;
+        NSData *outputData = [[stdout fileHandleForReading] readDataToEndOfFile];
+        NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+
+        NSArray *lines = [outputString componentsSeparatedByString:@"\n"];
+        for (NSString *line in lines) {
+            NSArray *chunks = [line componentsSeparatedByString:@" "];
+            if ([chunks[0] isEqualToString:@"status"]) {
+                playing = [chunks[1] isEqualToString:@"playing"];
+            } else if ([chunks[0] isEqualToString:@"tag"]) {
+                NSArray *valueChunks = [chunks subarrayWithRange:NSMakeRange(2, chunks.count - 2)];
+                NSString *value = [valueChunks componentsJoinedByString:@" "];
+                [tag setValue:value forKey:chunks[1]];
+            }
+        }
+    }
+    return @{
+        @"tag": tag,
+        @"running": [NSNumber numberWithBool:running],
+        @"playing": [NSNumber numberWithBool:playing]
+    };
+}
+
+- (void)popoverToggle:(NSEvent*)sender {
+    if (self.popover.shown) {
+        [self.popover performClose:sender];
+    } else {
+        [self.popover showRelativeToRect:self.statusItem.button.bounds
+                                  ofView:self.statusItem.button
+                           preferredEdge:NSRectEdgeMinY];
+    }
 }
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification {
@@ -96,19 +162,16 @@
 - (bool)mediaKeysHandle:(NSEvent*)event {
     switch (MEDIAKEY_CODE(event)) {
         case NX_KEYTYPE_PLAY:
-            [self runCommand:@[@"cmus-remote", @"--pause"]];
-            return true;
+            return [self playerToggle];
         case NX_KEYTYPE_REWIND:
-            [self runCommand:@[@"cmus-remote", @"--prev"]];
-            return true;
+            return [self playerPrev];
         case NX_KEYTYPE_FAST:
-            [self runCommand:@[@"cmus-remote", @"--next"]];
-            return true;
+            return [self playerNext];
     }
     return false;
 }
 
-- (void)runCommand:(NSArray*)command {
+- (NSTask*)runCommand:(NSArray*)command {
     NSTask *task = [[NSTask alloc] init];
     
     NSMutableDictionary *env = [[NSMutableDictionary alloc] initWithDictionary:[[NSProcessInfo processInfo] environment]];
@@ -117,8 +180,10 @@
     [task setEnvironment:env];
     [task setExecutableURL:[NSURL fileURLWithPath:@"/usr/bin/env"]];
     [task setArguments:command];
+    [task setStandardOutput:[NSPipe pipe]];
     [task launchAndReturnError:nil];
     [task waitUntilExit];
+    return task;
 }
 
 static CGEventRef tap_event_callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *ctx) {
