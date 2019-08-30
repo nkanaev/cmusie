@@ -9,6 +9,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NVPopoverController">
             <connections>
+                <outlet property="btnLock" destination="nU2-sf-hIw" id="aR9-Gh-OhX"/>
+                <outlet property="btnNext" destination="bHr-JZ-rVa" id="ub3-eb-9fc"/>
+                <outlet property="btnPlay" destination="dWd-bf-Epr" id="rvP-Cr-qSk"/>
+                <outlet property="btnPrev" destination="ClU-9d-gLf" id="Phk-jx-vqG"/>
                 <outlet property="fieldArtist" destination="1UF-xU-x3G" id="Epn-mh-ShP"/>
                 <outlet property="fieldTitle" destination="L5p-N9-uxo" id="LPI-IY-KOv"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -23,7 +27,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5p-N9-uxo">
                     <rect key="frame" x="7" y="54" width="238" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="left" title="Why Hip Hop Sucks in '96" id="xwz-fb-t4C">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="left" title="..." id="xwz-fb-t4C">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -32,7 +36,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1UF-xU-x3G">
                     <rect key="frame" x="7" y="35" width="238" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="DJ Shadow" id="uc8-95-fuM">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="..." id="uc8-95-fuM">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -45,6 +49,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="handleNext:" target="-2" id="2SZ-gH-vix"/>
+                    </connections>
                 </button>
                 <button focusRingType="exterior" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0d8-Na-y9c" customClass="NVControlButton">
                     <rect key="frame" x="221" y="8" width="22" height="22"/>
@@ -72,6 +79,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="handlePrev:" target="-2" id="r3Z-4n-lY5"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWd-bf-Epr" customClass="NVControlButton">
                     <rect key="frame" x="33" y="8" width="22" height="22"/>
@@ -80,6 +90,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="handlePlayToggle:" target="-2" id="Fx1-xh-V9w"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="37" y="56.5"/>

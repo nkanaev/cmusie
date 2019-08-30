@@ -15,21 +15,35 @@
     [self updateUI];
 }
 
+- (NVAppDelegate*)delegate {
+    return (NVAppDelegate*)NSApp.delegate;
+}
+
 - (void)updateUI {
-    NSDictionary *status = [(NVAppDelegate*)NSApp.delegate playerStatus];
+    NSDictionary *status = [[self delegate] playerStatus];
     self.fieldTitle.stringValue = [(NSDictionary*)status[@"tag"] valueForKey:@"title"];
     self.fieldArtist.stringValue = [(NSDictionary*)status[@"tag"] valueForKey:@"artist"];
-}
-
-- (void)setupTrackin {
-}
-
-- (void)mouseEntered:(NSEvent *)event {
     
+    NSString* image = [status[@"playing"] boolValue] ? @"pause" : @"play";
+    [self.btnPlay setImage:[NSImage imageNamed:image]];
 }
 
-- (void)mouseExited:(NSEvent *)event {
+- (IBAction)handlePrev:(id)sender {
+    [[self delegate] playerPrev];
+    [self updateUI];
 }
 
+- (IBAction)handleNext:(id)sender {
+    [[self delegate] playerNext];
+    [self updateUI];
+}
+
+- (IBAction)handlePlayToggle:(id)sender {
+    [[self delegate] playerToggle];
+    [self updateUI];
+}
+
+- (void)setPlayingButton:(BOOL)playing {
+}
 
 @end
