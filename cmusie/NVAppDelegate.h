@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface NVAppDelegate : NSObject <NSApplicationDelegate>
 
 - (bool)playerToggle;
 - (bool)playerPrev;

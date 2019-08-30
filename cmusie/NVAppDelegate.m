@@ -1,10 +1,10 @@
-#import "AppDelegate.h"
-#import "PopoverViewController.h"
+#import "NVAppDelegate.h"
+#import "NVPopoverController.h"
 
 #define MEDIAKEY_DOWN(event) (((([event data1] & 0x0000FFFF) & 0xFF00) >> 8) == 0xA)
 #define MEDIAKEY_CODE(event) (([event data1] & 0xFFFF0000) >> 16)
 
-@interface AppDelegate () {
+@interface NVAppDelegate () {
     CFMachPortRef _mk_tap_port;
 }
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation AppDelegate
+@implementation NVAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSMenu *menu = [[NSMenu alloc] init];
@@ -37,7 +37,7 @@
     self.popover = [[NSPopover alloc] init];
     self.popover.animates = NO;
     self.popover.behavior = NSPopoverBehaviorSemitransient;
-    self.popover.contentViewController = [PopoverViewController create];
+    self.popover.contentViewController = [NVPopoverController create];
     
     [self mediaKeysStart];
 }
@@ -91,15 +91,15 @@
 }
 
 - (void)popoverToggle:(NSEvent*)sender {
-    if (!_mk_tap_port) {
-        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
-        BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
-        if (!accessibilityEnabled) {
-            return;
-        } else {
-            [self mediaKeysStart];
-        }
-    }
+//    if (!_mk_tap_port) {
+//        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+//        BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+//        if (!accessibilityEnabled) {
+//            return;
+//        } else {
+//            [self mediaKeysStart];
+//        }
+//    }
     
     if (self.popover.shown) {
         [self.popover performClose:sender];
@@ -197,7 +197,7 @@
 }
 
 static CGEventRef tap_event_callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *ctx) {
-    AppDelegate *delegate = (__bridge AppDelegate*)ctx;
+    NVAppDelegate *delegate = (__bridge NVAppDelegate*)ctx;
     
     if (type == kCGEventTapDisabledByTimeout) {
         // The Mach Port receiving the taps became unresponsive for some

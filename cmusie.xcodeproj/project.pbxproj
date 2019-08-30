@@ -7,25 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		871AF0C82290239B007FE32C /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871AF0C62290239B007FE32C /* PopoverViewController.m */; };
-		871AF0C92290239B007FE32C /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 871AF0C72290239B007FE32C /* PopoverViewController.xib */; };
+		871AF0C82290239B007FE32C /* NVPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871AF0C62290239B007FE32C /* NVPopoverController.m */; };
+		871AF0C92290239B007FE32C /* NVPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 871AF0C72290239B007FE32C /* NVPopoverViewController.xib */; };
 		871AF0F4229066BF007FE32C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871AF0F3229066BF007FE32C /* Assets.xcassets */; };
-		8791DD53228A23B6003FB757 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791DD52228A23B6003FB757 /* AppDelegate.m */; };
+		8791DD53228A23B6003FB757 /* NVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791DD52228A23B6003FB757 /* NVAppDelegate.m */; };
 		8791DD58228A23B7003FB757 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8791DD56228A23B7003FB757 /* MainMenu.xib */; };
 		8791DD5B228A23B7003FB757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8791DD5A228A23B7003FB757 /* main.m */; };
+		879F53762319674E00603398 /* NVControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 879F53752319674E00603398 /* NVControlButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		871AF0C52290239B007FE32C /* PopoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
-		871AF0C62290239B007FE32C /* PopoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
-		871AF0C72290239B007FE32C /* PopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
+		871AF0C52290239B007FE32C /* NVPopoverController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVPopoverController.h; sourceTree = "<group>"; };
+		871AF0C62290239B007FE32C /* NVPopoverController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVPopoverController.m; sourceTree = "<group>"; };
+		871AF0C72290239B007FE32C /* NVPopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NVPopoverViewController.xib; sourceTree = "<group>"; };
 		871AF0F3229066BF007FE32C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8791DD4E228A23B6003FB757 /* cmusie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmusie.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8791DD51228A23B6003FB757 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		8791DD52228A23B6003FB757 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8791DD51228A23B6003FB757 /* NVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVAppDelegate.h; sourceTree = "<group>"; };
+		8791DD52228A23B6003FB757 /* NVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVAppDelegate.m; sourceTree = "<group>"; };
 		8791DD57228A23B7003FB757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8791DD59228A23B7003FB757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8791DD5A228A23B7003FB757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		879F53742319674E00603398 /* NVControlButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NVControlButton.h; sourceTree = "<group>"; };
+		879F53752319674E00603398 /* NVControlButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NVControlButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +61,14 @@
 		8791DD50228A23B6003FB757 /* cmusie */ = {
 			isa = PBXGroup;
 			children = (
+				8791DD51228A23B6003FB757 /* NVAppDelegate.h */,
+				8791DD52228A23B6003FB757 /* NVAppDelegate.m */,
+				879F53742319674E00603398 /* NVControlButton.h */,
+				879F53752319674E00603398 /* NVControlButton.m */,
+				871AF0C52290239B007FE32C /* NVPopoverController.h */,
+				871AF0C62290239B007FE32C /* NVPopoverController.m */,
+				871AF0C72290239B007FE32C /* NVPopoverViewController.xib */,
 				8791DD5A228A23B7003FB757 /* main.m */,
-				8791DD51228A23B6003FB757 /* AppDelegate.h */,
-				8791DD52228A23B6003FB757 /* AppDelegate.m */,
-				871AF0C52290239B007FE32C /* PopoverViewController.h */,
-				871AF0C62290239B007FE32C /* PopoverViewController.m */,
-				871AF0C72290239B007FE32C /* PopoverViewController.xib */,
 				8791DD59228A23B7003FB757 /* Info.plist */,
 				8791DD56228A23B7003FB757 /* MainMenu.xib */,
 				871AF0F3229066BF007FE32C /* Assets.xcassets */,
@@ -133,7 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				871AF0C92290239B007FE32C /* PopoverViewController.xib in Resources */,
+				871AF0C92290239B007FE32C /* NVPopoverViewController.xib in Resources */,
 				871AF0F4229066BF007FE32C /* Assets.xcassets in Resources */,
 				8791DD58228A23B7003FB757 /* MainMenu.xib in Resources */,
 			);
@@ -146,9 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				871AF0C82290239B007FE32C /* PopoverViewController.m in Sources */,
+				871AF0C82290239B007FE32C /* NVPopoverController.m in Sources */,
+				879F53762319674E00603398 /* NVControlButton.m in Sources */,
 				8791DD5B228A23B7003FB757 /* main.m in Sources */,
-				8791DD53228A23B6003FB757 /* AppDelegate.m in Sources */,
+				8791DD53228A23B6003FB757 /* NVAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
