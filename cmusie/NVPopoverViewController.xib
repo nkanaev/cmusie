@@ -71,6 +71,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="handleMediaKeysUnlock:" target="-2" id="QII-bi-pFc"/>
+                    </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ClU-9d-gLf" customClass="NVControlButton">
                     <rect key="frame" x="8" y="8" width="22" height="22"/>

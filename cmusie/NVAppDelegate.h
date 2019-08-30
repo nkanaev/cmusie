@@ -1,10 +1,22 @@
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+    MediaKeyStatusUnaccessible,
+    MediaKeyStatusEnabled,
+    MediaKeyStatusDisabled,
+} MediaKeyStatus;
+
 @interface NVAppDelegate : NSObject <NSApplicationDelegate>
 
-- (bool)playerToggle;
-- (bool)playerPrev;
-- (bool)playerNext;
+- (BOOL)playerToggle;
+- (BOOL)playerPrev;
+- (BOOL)playerNext;
+
+- (MediaKeyStatus)mediaKeysStatus;
+- (void)mediaKeysUnlock;
+- (void)mediaKeysStart;
+- (void)mediaKeysStop;
+
 - (NSDictionary*)playerStatus;
 
 @end

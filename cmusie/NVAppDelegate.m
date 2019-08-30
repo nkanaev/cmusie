@@ -14,9 +14,7 @@
 - (void)popoverToggle:(NSEvent*)sender;
 
 - (void)mediaKeysTopPriority;
-- (void)mediaKeysStart;
 - (void)mediaKeysRestart;
-- (void)mediaKeysStop;
 - (bool)mediaKeysHandle:(NSEvent*)sender;
 
 @end
@@ -39,7 +37,8 @@
     self.popover.behavior = NSPopoverBehaviorSemitransient;
     self.popover.contentViewController = [NVPopoverController create];
     
-    [self mediaKeysStart];
+    if (AXIsProcessTrusted())
+        [self mediaKeysStart];
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification {
@@ -48,15 +47,15 @@
     }
 }
 
-- (bool)playerToggle {
+- (BOOL)playerToggle {
     return [self runCommand:@[@"cmus-remote", @"--pause"]].terminationStatus == 0;
 }
 
-- (bool)playerPrev {
+- (BOOL)playerPrev {
     return [self runCommand:@[@"cmus-remote", @"--prev"]].terminationStatus == 0;
 }
 
-- (bool)playerNext {
+- (BOOL)playerNext {
     return [self runCommand:@[@"cmus-remote", @"--next"]].terminationStatus == 0;
 }
 
@@ -90,17 +89,21 @@
     };
 }
 
+- (MediaKeyStatus)mediaKeysStatus {
+    if (!AXIsProcessTrusted())
+        return MediaKeyStatusUnaccessible;
+    return _mk_tap_port ? MediaKeyStatusEnabled : MediaKeyStatusDisabled;
+}
+
+- (void)mediaKeysUnlock {
+    NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
+    if (accessibilityEnabled) {
+        [self mediaKeysStart];
+    }
+}
+
 - (void)popoverToggle:(NSEvent*)sender {
-//    if (!_mk_tap_port) {
-//        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
-//        BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((CFDictionaryRef)options);
-//        if (!accessibilityEnabled) {
-//            return;
-//        } else {
-//            [self mediaKeysStart];
-//        }
-//    }
-    
     if (self.popover.shown) {
         [self.popover performClose:sender];
     } else {

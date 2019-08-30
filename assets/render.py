@@ -30,8 +30,10 @@ async def svg2png(infile, outfile, size=512, padding=0.1, color='#333333'):
 
 async def main():
     size = 16
-    for icon in ['unlock', 'power-off', 'play', 'pause', 'backward', 'forward']:
+    for icon in sorted(['unlock', 'link', 'unlink', 'power-off',
+                        'play', 'pause', 'backward', 'forward']):
         svgpath = path(icon + '-solid.svg')
+        print('rendering:', icon)
         await svg2png(svgpath, f'{icon}-{size}.png', size=size)
         await svg2png(svgpath, f'{icon}-{size}@2x.png', size=size * 2)
 
