@@ -6,7 +6,7 @@ control cmus playback on macos using the ui and/or media keys.
 
 # credits
 
-* [fontawesome]: for control icons
+* [fontawesome]: for button icons
 * [mpv]: for low-level media keys control code.
 
 [fontawesome]: http://fontawesome.com/
