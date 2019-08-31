@@ -1,6 +1,6 @@
 # cmusie
 
-control cmus playback on macos using ui and/or media keys.
+control cmus playback on macos using the ui and/or media keys.
 
 ![preview](https://raw.githubusercontent.com/nkanaev/cmusie/master/assets/preview.jpg)
 
