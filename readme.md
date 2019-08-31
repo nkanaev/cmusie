@@ -4,6 +4,8 @@ control cmus playback on macos using the ui and/or media keys.
 
 ![preview](https://raw.githubusercontent.com/nkanaev/cmusie/master/assets/preview.jpg)
 
+[download](https://github.com/nkanaev/cmusie/releases)
+
 # credits
 
 * [fontawesome]: for button icons
