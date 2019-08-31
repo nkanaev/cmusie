@@ -107,9 +107,12 @@
     if (self.popover.shown) {
         [self.popover performClose:sender];
     } else {
-        [self.popover showRelativeToRect:self.statusItem.button.bounds
+        [self.popover showRelativeToRect:NSZeroRect
                                   ofView:self.statusItem.button
                            preferredEdge:NSRectEdgeMinY];
+        // hack: prevent popover from hiding in full screen mode
+        NSWindow *popoverWindow = self.popover.contentViewController.view.window;
+        [popoverWindow.parentWindow removeChildWindow:popoverWindow];
     }
 }
 
