@@ -2,6 +2,9 @@
 #import "NVAppDelegate.h"
 
 @interface NVPopoverController ()
+
+@property (strong, nonatomic) NSTimer *updateTimer;
+
 @end
 
 @implementation NVPopoverController
@@ -13,6 +16,18 @@
 - (void)viewDidAppear {
     [NSApp activateIgnoringOtherApps:YES];
     [self updateUI];
+
+    self.updateTimer = [NSTimer timerWithTimeInterval:2.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self updateUI];
+    }];
+    [[NSRunLoop mainRunLoop] addTimer:self.updateTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)viewDidDisappear {
+    if (self.updateTimer) {
+        [self.updateTimer invalidate];
+        self.updateTimer = nil;
+    }
 }
 
 - (NVAppDelegate*)delegate {
