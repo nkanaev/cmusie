@@ -6,6 +6,9 @@ control cmus playback on macos using the ui and/or media keys.
 
 [download](https://github.com/nkanaev/cmusie/releases/latest)
 
+To automatically start the app when you log in,
+follow the guide [here](https://support.apple.com/en-gb/guide/mac-help/mh15189/mac).
+
 # credits
 
 * [fontawesome]: for button icons
